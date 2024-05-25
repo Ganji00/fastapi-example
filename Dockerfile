@@ -13,6 +13,7 @@ WORKDIR /app
 # Copy dependencies files
 COPY pyproject.toml poetry.lock ./
 COPY docker-entrypoint.sh .
+COPY src/ src/
 
 # Install dependencies
 RUN poetry install --no-root --no-dev
