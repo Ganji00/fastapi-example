@@ -12,6 +12,7 @@ gunicorn = "^22.0.0"
 pydantic = "^2.7.1"
 pydantic-settings = "^2.2.1"
 pre-commit = "^3.7.1"
+asyncpg = "^0.29.0"
 
 
 [build-system]

@@ -3,10 +3,12 @@ ORM models.
 """
 
 from sqlalchemy import Column, ForeignKey, Integer, String
-from sqlalchemy.orm import DeclarativeBase, Mapped
+from sqlalchemy.orm import Mapped, declarative_base
+
+Base = declarative_base()
 
 
-class Customer(DeclarativeBase):
+class Customer(Base):
     """
     The customers table.
     """
@@ -18,7 +20,7 @@ class Customer(DeclarativeBase):
     last_name: Mapped[str] = Column(String)
 
 
-class Order(DeclarativeBase):
+class Order(Base):
     """
     The orders table.
     """
