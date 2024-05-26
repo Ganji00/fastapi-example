@@ -1,4 +1,9 @@
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncEngine, AsyncSession, async_sessionmaker
+from sqlalchemy.ext.asyncio import (
+    create_async_engine,
+    AsyncEngine,
+    AsyncSession,
+    async_sessionmaker,
+)
 
 from src.core.config import get_application_settings
 
@@ -10,8 +15,10 @@ async def create_database_engine() -> AsyncEngine:
     """
     settings = get_application_settings()
 
-    sqlalchemy_database_url = (f"postgresql+asyncpg://{settings.db_user}:{settings.db_password}@"
-                               f"{settings.db_host}:{settings.db_port}/{settings.db_name}")
+    sqlalchemy_database_url = (
+        f"postgresql+asyncpg://{settings.db_user}:{settings.db_password}@"
+        f"{settings.db_host}:{settings.db_port}/{settings.db_name}"
+    )
 
     engine = create_async_engine(sqlalchemy_database_url)
     return engine

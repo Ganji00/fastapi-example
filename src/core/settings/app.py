@@ -1,6 +1,7 @@
 """
 Implements general settings for the app.
 """
+
 from typing import Dict, Any
 
 from dotenv import find_dotenv
@@ -11,6 +12,7 @@ class AppSettings(BaseSettings):
     """
     General settings for the app.
     """
+
     debug: bool = True
     title: str = "Example API"
     version: str = "0.1.0"
@@ -22,7 +24,7 @@ class AppSettings(BaseSettings):
 
     model_config = SettingsConfigDict(
         extra="ignore",  # ignore any extra fields
-        env_file=find_dotenv(".env")
+        env_file=find_dotenv(".env"),
     )
 
     @property
