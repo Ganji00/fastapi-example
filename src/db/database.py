@@ -30,3 +30,19 @@ async def create_sessionmaker(engine: AsyncEngine) -> async_sessionmaker:
     :param engine: The database engine.
     """
     return async_sessionmaker(bind=engine, class_=AsyncSession, expire_on_commit=False)
+
+
+async def get_db() -> AsyncSession:
+    """
+    Get a new database session.
+    :return: A new database session.
+    """
+    engine = await create_database_engine()
+    sessionmaker = await create_sessionmaker(engine)
+    try:
+        async with sessionmaker() as session:
+            yield session
+    finally:
+        await session.commit()
+        await session.close()
+        await engine.dispose(close=True)
