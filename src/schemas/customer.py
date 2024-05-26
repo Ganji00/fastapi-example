@@ -24,7 +24,7 @@ class CustomerResponse(CustomerBase):
     id: int
 
 
-class Customer(CustomerBase):
+class CustomerRequest(CustomerBase):
     """
     Customer request schema
     """
