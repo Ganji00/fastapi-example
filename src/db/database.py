@@ -24,7 +24,7 @@ async def create_database_engine() -> AsyncEngine:
     return engine
 
 
-async def create_sessionmaker(engine: AsyncEngine):
+async def create_sessionmaker(engine: AsyncEngine) -> async_sessionmaker:
     """
     Create a new sessionmaker.
     :param engine: The database engine.

@@ -13,7 +13,13 @@ WORKDIR /app
 # Copy dependencies files
 COPY pyproject.toml poetry.lock ./
 COPY docker-entrypoint.sh .
+
+# Copy source code
 COPY src/ src/
+
+# Copy database migration files
+COPY alembic/ alembic/
+COPY alembic.ini alembic.ini
 
 # Install dependencies
 RUN poetry install --no-root --no-dev
