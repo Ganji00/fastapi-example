@@ -1,0 +1,3 @@
+"""
+Base app settings.
+"""
