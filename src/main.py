@@ -1,6 +1,7 @@
 from typing import Dict
 
 from fastapi import FastAPI
+
 from src.core.config import get_application_settings
 
 

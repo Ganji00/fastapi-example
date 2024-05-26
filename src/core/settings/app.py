@@ -2,7 +2,7 @@
 Implements general settings for the app.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 from dotenv import find_dotenv
 from pydantic_settings import BaseSettings, SettingsConfigDict
