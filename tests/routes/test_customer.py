@@ -9,7 +9,38 @@ def test_read_customers(client: TestClient) -> None:
     assert response.status_code == 200
 
 
-# def test_read_single_customer(client: TestClient, db: AsyncSession) -> None:
-#     create_random_customer(db)
-#     response = client.get("/customer/1")
-#     assert response.status_code == 200
+def test_add_customer(client: TestClient) -> None:
+    response = client.post(
+        "/customer",
+        json={
+            "first_name": "John",
+            "last_name": "Doe",
+        },
+    )
+    assert response.status_code == 201
+
+
+def test_update_customer(client: TestClient) -> None:
+    response = client.put(
+        "/customer/1",
+        json={
+            "first_name": "John",
+            "last_name": "Kiersnowski",
+        },
+    )
+    assert response.status_code == 200
+
+
+def test_read_single_customer(client: TestClient, db: AsyncSession) -> None:
+    response = client.get("/customer/1")
+    assert response.status_code == 200
+
+
+def test_read_single_customer_not_found(client: TestClient) -> None:
+    response = client.get("/customer/999")
+    assert response.status_code == 404
+
+
+def test_delete_customer(client: TestClient) -> None:
+    response = client.delete("/customer/1")
+    assert response.status_code == 204
