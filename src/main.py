@@ -4,6 +4,7 @@ from fastapi import FastAPI
 
 from src.core.config import get_application_settings
 from src.routers.customer import router as customer_router
+from src.routers.order import router as order_router
 
 
 def get_app() -> FastAPI:
@@ -17,6 +18,7 @@ def get_app() -> FastAPI:
     application = FastAPI(**settings.fastapi_kwargs)
 
     application.include_router(customer_router)
+    application.include_router(order_router)
 
     return application
 

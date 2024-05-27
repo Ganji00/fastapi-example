@@ -5,7 +5,7 @@ ORM models.
 from typing import Type
 
 from sqlalchemy import ForeignKey, Integer, String
-from sqlalchemy.orm import Mapped, declarative_base, mapped_column
+from sqlalchemy.orm import Mapped, declarative_base, mapped_column, relationship
 
 Base: Type = declarative_base()
 
@@ -20,6 +20,8 @@ class Customer(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     first_name: Mapped[str] = mapped_column(String)
     last_name: Mapped[str] = mapped_column(String)
+
+    orders = relationship("Order", backref="customer", cascade="all, delete")
 
 
 class Order(Base):
