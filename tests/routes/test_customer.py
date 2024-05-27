@@ -37,6 +37,7 @@ async def test_update_customer(client: TestClient) -> None:
 
 @pytest.mark.asyncio
 async def test_read_single_customer(client: TestClient, db: AsyncSession) -> None:
+    await create_random_customer(db)
     response = client.get("/customer/1")
     assert response.status_code == 200
 

@@ -1,4 +1,5 @@
 import pytest
+import pytest_asyncio
 from fastapi.testclient import TestClient
 
 from src.db.database import create_database_engine, create_sessionmaker
@@ -11,12 +12,10 @@ def client():
         yield client
 
 
-@pytest.fixture(scope="function")
+@pytest_asyncio.fixture(scope="function")
 async def db():
     engine = await create_database_engine()
     session_maker = await create_sessionmaker(engine)
     async with session_maker() as session:
         yield session
-    await session.rollback()
-    await session.close()
     await engine.dispose(close=True)
