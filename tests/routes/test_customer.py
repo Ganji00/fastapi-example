@@ -1,15 +1,18 @@
+import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from tests.utils.customer import create_random_customer
 
 
-def test_read_customers(client: TestClient) -> None:
+@pytest.mark.asyncio
+async def test_read_customers(client: TestClient) -> None:
     response = client.get("/customer")
     assert response.status_code == 200
 
 
-def test_add_customer(client: TestClient) -> None:
+@pytest.mark.asyncio
+async def test_add_customer(client: TestClient) -> None:
     response = client.post(
         "/customer",
         json={
@@ -20,7 +23,8 @@ def test_add_customer(client: TestClient) -> None:
     assert response.status_code == 201
 
 
-def test_update_customer(client: TestClient) -> None:
+@pytest.mark.asyncio
+async def test_update_customer(client: TestClient) -> None:
     response = client.put(
         "/customer/1",
         json={
@@ -31,16 +35,19 @@ def test_update_customer(client: TestClient) -> None:
     assert response.status_code == 200
 
 
-def test_read_single_customer(client: TestClient, db: AsyncSession) -> None:
+@pytest.mark.asyncio
+async def test_read_single_customer(client: TestClient, db: AsyncSession) -> None:
     response = client.get("/customer/1")
     assert response.status_code == 200
 
 
-def test_read_single_customer_not_found(client: TestClient) -> None:
+@pytest.mark.asyncio
+async def test_read_single_customer_not_found(client: TestClient) -> None:
     response = client.get("/customer/999")
     assert response.status_code == 404
 
 
-def test_delete_customer(client: TestClient) -> None:
+@pytest.mark.asyncio
+async def test_delete_customer(client: TestClient) -> None:
     response = client.delete("/customer/1")
     assert response.status_code == 204
