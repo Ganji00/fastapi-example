@@ -5,8 +5,9 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.db.database import get_db
-from src.db.models import Customer
+from src.db.models import Customer, Order
 from src.schemas.customer import CustomerRequest, CustomerResponse
+from src.schemas.order import OrderResponse
 
 router = APIRouter(
     prefix="/customer",
@@ -31,6 +32,14 @@ async def read_customer(customer_id: int, db: AsyncSession = Depends(get_db)):
         return Response(status_code=status.HTTP_404_NOT_FOUND)
     else:
         return customer
+
+
+@router.get("/{customer_id}/orders", response_model=List[OrderResponse])
+async def read_customer_orders(customer_id: int, db: AsyncSession = Depends(get_db)):
+    q = select(Order).filter(Order.customer_id == customer_id)
+    result = await db.execute(q)
+    orders = result.scalars().all()
+    return orders
 
 
 @router.delete("/{customer_id}", status_code=status.HTTP_204_NO_CONTENT)
