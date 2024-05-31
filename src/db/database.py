@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import (
 )
 
 from src.core.config import get_application_settings
+from src.db.models import Base
 
 
 async def create_database_engine() -> AsyncEngine:
@@ -46,3 +47,10 @@ async def get_db() -> AsyncSession:
         await session.commit()
         await session.close()
         await engine.dispose(close=True)
+
+
+async def init_models():
+    engine = await create_database_engine()
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
+        await conn.run_sync(Base.metadata.create_all)

@@ -24,7 +24,8 @@ async def test_add_customer(client: TestClient) -> None:
 
 
 @pytest.mark.asyncio
-async def test_update_customer(client: TestClient) -> None:
+async def test_update_customer(client: TestClient, db: AsyncSession) -> None:
+    await create_random_customer(db)
     response = client.put(
         "/customer/1",
         json={
