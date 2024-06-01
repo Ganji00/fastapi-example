@@ -3,7 +3,7 @@ name: CI - Lint, Test and Build
 on: [push]
 
 jobs:
-  pre-commit:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
