@@ -3,7 +3,6 @@ import pytest_asyncio
 from fastapi.testclient import TestClient
 
 from src.db.database import create_database_engine, create_sessionmaker, init_models
-from src.db.models import Base
 from src.main import app
 
 
