@@ -2,17 +2,20 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from src.db.database import init_models
 from tests.utils.customer import create_random_customer
 
 
 @pytest.mark.asyncio
 async def test_read_customers(client: TestClient) -> None:
+    await init_models()
     response = client.get("/customer")
     assert response.status_code == 200
 
 
 @pytest.mark.asyncio
 async def test_add_customer(client: TestClient) -> None:
+    await init_models()
     response = client.post(
         "/customer",
         json={
